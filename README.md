@@ -1,0 +1,2 @@
+# Fairy_and_YouKai_Lm_studio
+我给lm studio适配了绝区零里面的fairy还有youKai的AI形象，欢迎各位使用，祝你玩的开心！

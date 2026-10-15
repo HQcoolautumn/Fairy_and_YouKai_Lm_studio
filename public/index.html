@@ -1,0 +1,416 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FAIRY // LOCAL MODEL LINK</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body class="hdd" data-agent="fairy">
+  <div class="scanlines" aria-hidden="true"></div>
+
+  <div class="app">
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-mark">◈</span>
+        <div class="brand-text">
+          <div class="brand-title">FAIRY</div>
+          <div class="brand-sub">LOCAL MODEL LINK</div>
+        </div>
+      </div>
+
+      <div class="chips">
+        <span class="chip" id="chip-lm"><i class="dot"></i><span>LM Studio</span></span>
+        <span class="chip mono" id="chip-model">未选择模型</span>
+        <span class="chip mono" id="chip-voice">语音：关</span>
+      </div>
+
+      <div class="topbar-actions">
+        <button class="btn ghost" id="btn-agent" title="切换智能体：Fairy ⇄ YouKai">◉ <span id="agent-label">Fairy</span></button>
+        <button class="btn ghost" id="btn-hdd" title="切换 HDD 视觉模式">HDD</button>
+        <button class="btn ghost" id="btn-theme" title="切换深色 / 浅色页面">◐ <span id="theme-label">深色</span></button>
+        <button class="btn ghost" id="btn-fullscreen" title="进入 / 退出全屏（Esc 退出全屏）">⛶</button>
+        <button class="btn ghost" id="btn-clear" title="清除当前会话">清除会话</button>
+        <button class="btn" id="btn-settings">设置</button>
+      </div>
+    </header>
+
+    <main class="stage">
+      <aside class="side">
+        <div class="avatar" id="avatar" data-fairy-mascot-root="true" data-state="normal" data-lifecycle="idle">
+          <div class="mascot mascot-fairy">
+          <!-- Fairy 形象：来自 Fairy-DSH 的 mascot-eye-svg.js（内联矢量，非位图） -->
+          <svg viewBox="0 0 160 160" class="fairy-svg" aria-hidden="true">
+            <defs>
+              <linearGradient id="fairy-outer-gradient" x1=".2" y1="0" x2=".8" y2="1">
+                <stop stop-color="#4053f0"/>
+                <stop offset=".54" stop-color="#3045dc"/>
+                <stop offset="1" stop-color="#3d50c8"/>
+              </linearGradient>
+              <radialGradient id="fairy-sclera-halo-gradient" gradientUnits="userSpaceOnUse" cx="80" cy="80" r="56" color-interpolation="linearRGB">
+                <stop offset=".82" stop-color="#ffffff" stop-opacity="0"/>
+                <stop offset=".864" stop-color="#ffffff" stop-opacity=".22"/>
+                <stop offset=".875" stop-color="#ffffff" stop-opacity=".28"/>
+                <stop offset=".89" stop-color="#ffffff" stop-opacity=".19"/>
+                <stop offset=".91" stop-color="#ffffff" stop-opacity=".11"/>
+                <stop offset=".94" stop-color="#ffffff" stop-opacity=".07"/>
+                <stop offset=".96" stop-color="#ffffff" stop-opacity=".035"/>
+                <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+              </radialGradient>
+              <radialGradient id="fairy-outer-halo-gradient" gradientUnits="userSpaceOnUse" cx="80" cy="80" r="79" color-interpolation="linearRGB">
+                <stop offset=".80" stop-color="#5AF0FF" stop-opacity="0"/>
+                <stop offset=".84" stop-color="#5AF0FF" stop-opacity=".10"/>
+                <stop offset=".868" stop-color="#5AF0FF" stop-opacity=".28"/>
+                <stop offset=".90" stop-color="#5AF0FF" stop-opacity=".18"/>
+                <stop offset=".95" stop-color="#5AF0FF" stop-opacity=".06"/>
+                <stop offset=".99" stop-color="#5AF0FF" stop-opacity=".02"/>
+                <stop offset="1" stop-color="#5AF0FF" stop-opacity="0"/>
+              </radialGradient>
+              <radialGradient id="fairy-highlight-halo-gradient" gradientUnits="userSpaceOnUse" cx="98" cy="100.5" r="18" color-interpolation="linearRGB">
+                <stop offset=".53" stop-color="#f5f8fd" stop-opacity="0"/>
+                <stop offset=".56" stop-color="#f5f8fd" stop-opacity=".16"/>
+                <stop offset=".611" stop-color="#f5f8fd" stop-opacity=".43"/>
+                <stop offset=".72" stop-color="#f5f8fd" stop-opacity=".19"/>
+                <stop offset=".77" stop-color="#f5f8fd" stop-opacity=".12"/>
+                <stop offset=".83" stop-color="#f5f8fd" stop-opacity=".055"/>
+                <stop offset=".89" stop-color="#f5f8fd" stop-opacity=".02"/>
+                <stop offset=".96" stop-color="#f5f8fd" stop-opacity=".004"/>
+                <stop offset="1" stop-color="#f5f8fd" stop-opacity="0"/>
+              </radialGradient>
+              <pattern id="fairy-lines" width="4" height="4" patternUnits="userSpaceOnUse">
+                <rect width="4" height="1" fill="#c9f8ff" opacity=".055"/>
+              </pattern>
+              <clipPath id="fairy-disc-clip"><circle cx="80" cy="80" r="67"/></clipPath>
+              <clipPath id="fairy-thinking-eye-clip">
+                <path class="fairy-thinking-clip-shape" d="M20 60 Q80 90 140 60 V160 H20 Z"/>
+                <rect x="0" y="108" width="160" height="52"/>
+              </clipPath>
+              <clipPath id="fairy-comforting-eye-clip">
+                <path class="fairy-comforting-clip-shape" d="M20 60 Q80 30 140 60 V160 H20 Z"/>
+                <rect x="0" y="108" width="160" height="52"/>
+              </clipPath>
+            </defs>
+
+            <g class="fairy-body">
+              <circle class="fairy-outer-halo" cx="80" cy="80" r="79" fill="url(#fairy-outer-halo-gradient)"/>
+              <!-- 睫毛脉冲：从瞳仁向外扩散的一圈光波（Fairy-DSH lash-pulse），裁剪在镜片内以防撑破布局 -->
+              <g class="fairy-lash-pulse-wave" clip-path="url(#fairy-disc-clip)" aria-hidden="true">
+                <circle cx="80" cy="80" r="24" fill="none" stroke="#c9f8ff" stroke-width="1.6"/>
+                <circle cx="80" cy="80" r="24" fill="none" stroke="#c9f8ff" stroke-width="0.8" opacity=".55"/>
+              </g>
+              <g class="fairy-signal">
+                <g class="fairy-image">
+                  <circle class="fairy-outer-disc" cx="80" cy="80" r="68" fill="url(#fairy-outer-gradient)" stroke="#f2fbff" stroke-width="1.2"/>
+                  <g class="fairy-corners" clip-path="url(#fairy-disc-clip)" fill="#2b3388">
+                    <circle cx="80" cy="80" r="51.75"/>
+                    <rect x="37" y="37" width="86" height="86" rx="2" transform="rotate(3 80 80)"/>
+                  </g>
+                  <g class="fairy-eye">
+                    <g class="fairy-sclera">
+                      <circle cx="80" cy="80" r="48" fill="#eef0f5"/>
+                      <circle class="fairy-sclera-halo" cx="80" cy="80" r="56" fill="url(#fairy-sclera-halo-gradient)"/>
+                      <circle class="fairy-sclera-contact" cx="80" cy="80" r="48" fill="none" stroke="#ffffff" stroke-width="0.8" stroke-opacity=".16"/>
+                    </g>
+                    <g class="fairy-eyeball">
+                      <circle class="fairy-layer-three" cx="80" cy="80" r="33" fill="#9daee0"/>
+                      <circle class="fairy-layer-two" cx="80" cy="80" r="24.15" fill="#eef0f5"/>
+                      <circle class="fairy-layer-two" cx="80" cy="80" r="23.5" fill="#317bcf"/>
+                      <circle class="fairy-layer-one" cx="80" cy="80" r="16.6" fill="none" stroke="#f5f8fd" stroke-width=".1"/>
+                      <circle class="fairy-layer-one" cx="80" cy="80" r="16" fill="#3b3d8a"/>
+                      <g class="fairy-highlight fairy-layer-two">
+                        <circle class="fairy-highlight-halo" cx="98" cy="100.5" r="18" fill="url(#fairy-highlight-halo-gradient)"/>
+                        <circle class="fairy-highlight-glow" cx="98" cy="100.5" r="11" fill="#f5f8fd"/>
+                      </g>
+                    </g>
+                  </g>
+                  <circle class="fairy-eye-flicker" cx="80" cy="80" r="68.6" fill="#ffffff" pointer-events="none"/>
+                  <g clip-path="url(#fairy-disc-clip)" opacity=".42">
+                    <rect class="fairy-scanlines" x="12" y="10" width="136" height="146" fill="url(#fairy-lines)"/>
+                  </g>
+                </g>
+              </g>
+            </g>
+          </svg>
+          </div>
+
+          <div class="mascot mascot-youkai">
+          <!-- YouKai 形象：按开场影片（红色眼球）重建，结构与 Fairy 完全同构，
+               复用同一组 .fairy-* 动画类，眨眼/思考/说话/故障等表现一致 -->
+          <svg viewBox="0 0 160 160" class="fairy-svg" aria-hidden="true">
+            <defs>
+              <linearGradient id="youkai-outer-gradient" x1=".2" y1="0" x2=".8" y2="1">
+                <stop stop-color="#b44a7e"/>
+                <stop offset=".54" stop-color="#8e2f5e"/>
+                <stop offset="1" stop-color="#a03a6c"/>
+              </linearGradient>
+              <radialGradient id="youkai-sclera-halo-gradient" gradientUnits="userSpaceOnUse" cx="80" cy="80" r="56" color-interpolation="linearRGB">
+                <stop offset=".82" stop-color="#ffffff" stop-opacity="0"/>
+                <stop offset=".864" stop-color="#ffffff" stop-opacity=".22"/>
+                <stop offset=".875" stop-color="#ffffff" stop-opacity=".30"/>
+                <stop offset=".89" stop-color="#ffffff" stop-opacity=".20"/>
+                <stop offset=".91" stop-color="#ffffff" stop-opacity=".12"/>
+                <stop offset=".94" stop-color="#ffffff" stop-opacity=".07"/>
+                <stop offset=".96" stop-color="#ffffff" stop-opacity=".035"/>
+                <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+              </radialGradient>
+              <radialGradient id="youkai-outer-halo-gradient" gradientUnits="userSpaceOnUse" cx="80" cy="80" r="79" color-interpolation="linearRGB">
+                <stop offset=".80" stop-color="#FF7BA8" stop-opacity="0"/>
+                <stop offset=".84" stop-color="#FF7BA8" stop-opacity=".10"/>
+                <stop offset=".868" stop-color="#FF7BA8" stop-opacity=".28"/>
+                <stop offset=".90" stop-color="#FF7BA8" stop-opacity=".18"/>
+                <stop offset=".95" stop-color="#FF7BA8" stop-opacity=".06"/>
+                <stop offset=".99" stop-color="#FF7BA8" stop-opacity=".02"/>
+                <stop offset="1" stop-color="#FF7BA8" stop-opacity="0"/>
+              </radialGradient>
+              <radialGradient id="youkai-highlight-halo-gradient" gradientUnits="userSpaceOnUse" cx="95" cy="97" r="18" color-interpolation="linearRGB">
+                <stop offset=".53" stop-color="#fdf3f7" stop-opacity="0"/>
+                <stop offset=".56" stop-color="#fdf3f7" stop-opacity=".16"/>
+                <stop offset=".611" stop-color="#fdf3f7" stop-opacity=".43"/>
+                <stop offset=".72" stop-color="#fdf3f7" stop-opacity=".19"/>
+                <stop offset=".77" stop-color="#fdf3f7" stop-opacity=".12"/>
+                <stop offset=".83" stop-color="#fdf3f7" stop-opacity=".055"/>
+                <stop offset=".89" stop-color="#fdf3f7" stop-opacity=".02"/>
+                <stop offset=".96" stop-color="#fdf3f7" stop-opacity=".004"/>
+                <stop offset="1" stop-color="#fdf3f7" stop-opacity="0"/>
+              </radialGradient>
+              <radialGradient id="youkai-flower-gradient" cx=".5" cy=".42" r=".62">
+                <stop stop-color="#5e1638"/>
+                <stop offset="1" stop-color="#40102a"/>
+              </radialGradient>
+              <pattern id="youkai-lines" width="4" height="4" patternUnits="userSpaceOnUse">
+                <rect width="4" height="1" fill="#ffd9e6" opacity=".06"/>
+              </pattern>
+              <filter id="youkai-flower-soft" x="-30%" y="-30%" width="160%" height="160%">
+                <feGaussianBlur stdDeviation="2.4"/>
+              </filter>
+              <mask id="youkai-crescent-mask">
+                <circle cx="95" cy="97" r="9.5" fill="#ffffff"/>
+                <circle cx="90.2" cy="92.4" r="8.8" fill="#000000"/>
+              </mask>
+              <!-- 以下三个裁剪路径必须与 Fairy 的等价器物同构：
+                   之前 YouKai 直接引用了 Fairy 的 #fairy-disc-clip / #fairy-thinking-eye-clip，
+                   而切到 YouKai 时 Fairy 那棵子树是 display:none，clip-path 与其中的
+                   眨眼/闭眼动画解析不到，于是「闭眼思考」「安抚眯眼」等状态在 YouKai 上整体消失。 -->
+              <clipPath id="youkai-disc-clip"><circle cx="80" cy="80" r="67"/></clipPath>
+              <clipPath id="youkai-thinking-eye-clip">
+                <path class="fairy-thinking-clip-shape" d="M20 60 Q80 90 140 60 V160 H20 Z"/>
+                <rect x="0" y="108" width="160" height="52"/>
+              </clipPath>
+              <clipPath id="youkai-comforting-eye-clip">
+                <path class="fairy-comforting-clip-shape" d="M20 60 Q80 30 140 60 V160 H20 Z"/>
+                <rect x="0" y="108" width="160" height="52"/>
+              </clipPath>
+            </defs>
+
+            <g class="fairy-body">
+              <circle class="fairy-outer-halo" cx="80" cy="80" r="79" fill="url(#youkai-outer-halo-gradient)"/>
+              <!-- 睫毛脉冲：与 Fairy 同款，裁剪在镜片内 -->
+              <g class="fairy-lash-pulse-wave" clip-path="url(#youkai-disc-clip)" aria-hidden="true">
+                <circle cx="80" cy="80" r="24" fill="none" stroke="#ffd3e2" stroke-width="1.6"/>
+                <circle cx="80" cy="80" r="24" fill="none" stroke="#ffd3e2" stroke-width="0.8" opacity=".55"/>
+              </g>
+              <g class="fairy-signal">
+                <g class="fairy-image">
+                  <circle class="fairy-outer-disc" cx="80" cy="80" r="68" fill="url(#youkai-outer-gradient)" stroke="#f5b8d0" stroke-width="1.2"/>
+                  <!-- 深红锯齿花瓣环（YouKai 标志性轮廓，随 Fairy 的睫毛层一同缓转） -->
+                  <g class="fairy-corners" clip-path="url(#youkai-disc-clip)">
+                    <path d="M 80 23 Q 91.6 48.1 116.6 36.3 Q 109.4 63 136.1 70.1 Q 113.5 85.9 129.4 108.5 Q 101.9 106 99.5 133.6 Q 80 114 60.5 133.6 Q 58.1 106 30.6 108.5 Q 46.5 85.9 23.9 70.1 Q 50.6 63 43.4 36.3 Q 68.4 48.1 80 23 Z" fill="#6b1a3e" opacity=".55" filter="url(#youkai-flower-soft)"/>
+                    <path d="M 80 23 Q 91.6 48.1 116.6 36.3 Q 109.4 63 136.1 70.1 Q 113.5 85.9 129.4 108.5 Q 101.9 106 99.5 133.6 Q 80 114 60.5 133.6 Q 58.1 106 30.6 108.5 Q 46.5 85.9 23.9 70.1 Q 50.6 63 43.4 36.3 Q 68.4 48.1 80 23 Z" fill="url(#youkai-flower-gradient)"/>
+                  </g>
+                  <g class="fairy-eye">
+                    <g class="fairy-sclera">
+                      <circle cx="80" cy="80" r="48" fill="#f7eff3"/>
+                      <circle class="fairy-sclera-halo" cx="80" cy="80" r="56" fill="url(#youkai-sclera-halo-gradient)"/>
+                      <circle class="fairy-sclera-contact" cx="80" cy="80" r="48" fill="none" stroke="#ffffff" stroke-width="0.8" stroke-opacity=".18"/>
+                    </g>
+                    <g class="fairy-eyeball">
+                      <circle class="fairy-layer-three" cx="80" cy="80" r="33" fill="#dc8fae"/>
+                      <circle class="fairy-layer-two" cx="80" cy="80" r="24.15" fill="#f7eff3"/>
+                      <circle class="fairy-layer-two" cx="80" cy="80" r="23.5" fill="#b8457e"/>
+                      <circle class="fairy-layer-one" cx="80" cy="80" r="16.6" fill="none" stroke="#fdf3f7" stroke-width=".1"/>
+                      <circle class="fairy-layer-one" cx="80" cy="80" r="16" fill="#5c1638"/>
+                      <circle cx="80" cy="80" r="9" fill="#4a1030"/>
+                      <!-- 月牙高光：YouKai 标志性的新月反光 -->
+                      <g class="fairy-highlight fairy-layer-two">
+                        <circle class="fairy-highlight-halo" cx="95" cy="97" r="18" fill="url(#youkai-highlight-halo-gradient)"/>
+                        <circle class="fairy-highlight-glow" cx="95" cy="97" r="9.5" fill="#fdf7fa" mask="url(#youkai-crescent-mask)"/>
+                      </g>
+                    </g>
+                  </g>
+                  <circle class="fairy-eye-flicker" cx="80" cy="80" r="68.6" fill="#ffffff" pointer-events="none"/>
+                  <g clip-path="url(#youkai-disc-clip)" opacity=".45">
+                    <rect class="fairy-scanlines" x="12" y="10" width="136" height="146" fill="url(#youkai-lines)"/>
+                  </g>
+                </g>
+              </g>
+            </g>
+          </svg>
+          </div>
+
+          <div class="equalizer" id="equalizer" aria-hidden="true">
+            <span></span><span></span><span></span><span></span><span></span>
+          </div>
+        </div>
+
+        <div class="state">
+          <div class="state-label" id="state-label">待机</div>
+          <div class="state-hint" id="state-hint">本地模型链路待命中</div>
+        </div>
+
+        <div class="meters">
+          <div class="meter"><span class="meter-name">模型链路</span><div class="meter-bar"><i id="meter-link"></i></div></div>
+          <div class="meter"><span class="meter-name">语音合成</span><div class="meter-bar"><i id="meter-voice"></i></div></div>
+          <div class="meter"><span class="meter-name">语料校准</span><div class="meter-bar"><i id="meter-corpus"></i></div></div>
+        </div>
+
+        <div class="quick">
+          <button class="quick-btn" data-preset="greet">问个好</button>
+          <button class="quick-btn" data-preset="status">播报状态</button>
+          <button class="quick-btn" data-preset="joke">说点冷笑话</button>
+        </div>
+      </aside>
+
+      <section class="chat">
+        <div class="messages" id="messages"></div>
+        <div class="composer">
+          <textarea id="input" rows="1" placeholder="向 Fairy 下达指令…（Enter 发送 / Shift+Enter 换行）"></textarea>
+          <div class="composer-actions">
+            <button class="btn ghost" id="btn-stop" title="中断当前生成" disabled>中断</button>
+            <button class="btn" id="btn-send">发送</button>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div class="mask" id="mask"></div>
+  <aside class="drawer" id="drawer">
+    <div class="drawer-head">
+      <div class="drawer-title">参数设置</div>
+      <button class="btn ghost" id="btn-close-drawer">关闭</button>
+    </div>
+    <div class="drawer-body">
+      <div class="group">
+        <div class="group-title">模型链路</div>
+        <label class="field"><span>推理地址</span>
+          <input type="text" id="set-baseUrl" spellcheck="false">
+        </label>
+        <label class="field"><span>模型</span>
+          <select id="set-model"></select>
+        </label>
+        <label class="field"><span>密钥（本地一般留空）</span>
+          <input type="text" id="set-apiKey" spellcheck="false">
+        </label>
+        <label class="field"><span>采样温度 <b id="val-temp"></b></span>
+          <input type="range" id="set-temp" min="0" max="1.5" step="0.05">
+        </label>
+        <label class="field"><span>最大 token <b id="val-maxtok"></b></span>
+          <input type="range" id="set-maxtok" min="256" max="8192" step="128">
+        </label>
+        <label class="field"><span>保留上下文轮数 <b id="val-ctx"></b></span>
+          <input type="range" id="set-ctx" min="2" max="40" step="2">
+        </label>
+        <label class="field inline"><input type="checkbox" id="set-autostart"><span>自动拉起 LM Studio 本地服务</span></label>
+      </div>
+
+      <div class="group">
+        <div class="group-title">人格</div>
+        <label class="field inline"><input type="checkbox" id="set-usepersona"><span>启用 Fairy 人格</span></label>
+        <label class="field"><span>主人称呼</span>
+          <input type="text" id="set-master" spellcheck="false">
+        </label>
+        <label class="field"><span>语料校准条数 <b id="val-samples"></b></span>
+          <input type="range" id="set-samples" min="0" max="16" step="1">
+        </label>
+        <label class="field"><span>语料目录</span>
+          <input type="text" id="set-corpus" spellcheck="false">
+        </label>
+        <label class="field"><span>补充规则</span>
+          <textarea id="set-extra" rows="3" spellcheck="false"></textarea>
+        </label>
+      </div>
+
+      <div class="group">
+        <div class="group-title">语音</div>
+        <label class="field inline"><input type="checkbox" id="set-tts"><span>启用语音播报</span></label>
+        <label class="field inline"><input type="checkbox" id="set-autoread"><span>回复自动朗读</span></label>
+        <label class="field"><span>引擎</span>
+          <select id="set-engine">
+            <option value="local">系统离线音色</option>
+            <option value="edge">在线音色（需联网）</option>
+            <option value="sovits">GPT-SoVITS（9880）</option>
+          </select>
+        </label>
+        <label class="field"><span>音色</span>
+          <select id="set-voice"></select>
+        </label>
+        <label class="field"><span>语速 <b id="val-rate"></b></span>
+          <input type="range" id="set-rate" min="-10" max="10" step="1">
+        </label>
+        <label class="field"><span>语调 <b id="val-pitch"></b></span>
+          <input type="range" id="set-pitch" min="-20" max="20" step="1">
+        </label>
+        <p class="hint">
+          想最接近原角色：优先用「在线音色」的 <b>晓晓 zh-CN-XiaoxiaoNeural</b>（需联网）。<br>
+          离线音色（Huihui）建议 <b>语调 +4~+8、语速 +2</b>，会更接近年轻女声。<br>
+          想要真正的游戏音色：用 GPT-SoVITS，填入 Fairy 参考音频与文本。
+        </p>
+        <div class="advanced">
+          <div class="group-sub">GPT-SoVITS 参数</div>
+          <label class="field"><span>服务地址</span>
+            <input type="text" id="set-sovitsUrl" spellcheck="false">
+          </label>
+          <label class="field"><span>参考音频路径</span>
+            <input type="text" id="set-sovitsRef" spellcheck="false">
+          </label>
+          <label class="field"><span>参考文本</span>
+            <input type="text" id="set-sovitsText" spellcheck="false">
+          </label>
+        </div>
+      </div>
+
+      <div class="group">
+        <div class="group-title">其他</div>
+        <label class="field"><span>页面主题</span>
+          <select id="set-theme">
+            <option value="dark">深色系（黑）</option>
+            <option value="light">浅色系（白）</option>
+          </select>
+        </label>
+        <label class="field inline"><input type="checkbox" id="set-hdd"><span>HDD 视觉模式</span></label>
+        <label class="field inline"><input type="checkbox" id="set-autoopen"><span>启动时自动打开浏览器</span></label>
+        <label class="field"><span>服务端口</span>
+          <input type="number" id="set-port" min="1024" max="65535" step="1">
+        </label>
+      </div>
+
+      <div class="drawer-foot">
+        <button class="btn ghost" id="btn-testvoice">试听</button>
+        <button class="btn primary" id="btn-save">保存并应用</button>
+      </div>
+      <div class="drawer-note" id="save-note"></div>
+    </div>
+  </aside>
+
+  <!-- YouKai 开场动画：每次从 Fairy 切换到 YouKai 都会完整播放一次（可点击/按 Esc 跳过） -->
+  <div class="intro-overlay" id="youkai-intro" aria-hidden="true">
+    <video id="youkai-intro-video" src="/assets/youkai-intro.mp4" playsinline preload="auto"></video>
+    <button class="intro-skip" id="intro-skip" type="button">跳过 ▸</button>
+  </div>
+
+  <!-- Fairy 开场动画：每次打开页面都播一次开机序列（含开机音效，可点击 / 按 Esc 跳过） -->
+  <div class="boot-overlay" id="fairy-boot" aria-hidden="true">
+    <div class="boot-scan" aria-hidden="true"></div>
+    <div class="boot-stage">
+      <div class="boot-ring"><span class="boot-core"></span></div>
+      <div class="boot-title">FAIRY // SYSTEM BOOT</div>
+      <div class="boot-log" id="boot-log"></div>
+    </div>
+    <button class="boot-skip" id="boot-skip" type="button">跳过 ▸</button>
+    <audio id="fairy-boot-audio" src="/assets/fairy-boot.wav" preload="auto"></audio>
+  </div>
+
+  <audio id="player"></audio>
+  <script src="/app.js"></script>
+</body>
+</html>

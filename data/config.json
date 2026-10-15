@@ -1,0 +1,63 @@
+{
+  "port": 5178,
+  "lmstudio": {
+    "baseUrl": "http://127.0.0.1:1234/v1",
+    "model": "",
+    "temperature": 0.7,
+    "maxTokens": 1536,
+    "contextMessages": 12,
+    "autoStartServer": false,
+    "apiKey": ""
+  },
+  "persona": {
+    "corpusRoot": "",
+    "masterName": "主人",
+    "corpusSamples": 6,
+    "extraPrompt": "",
+    "usePersona": true
+  },
+  "tts": {
+    "enabled": true,
+    "autoRead": true,
+    "engine": "local",
+    "voice": "Microsoft Huihui Desktop",
+    "rate": 2,
+    "pitch": 4,
+    "sovitsUrl": "http://127.0.0.1:9880/tts",
+    "sovitsRefAudio": "",
+    "sovitsPromptText": "",
+    "sovitsTextLang": "zh",
+    "sovitsPromptLang": "zh",
+    "sovitsDenoise": true,
+    "sovitsTopK": 12,
+    "sovitsTopP": 1,
+    "sovitsTemperature": 0.9,
+    "sovitsRepetitionPenalty": 1.35,
+    "sovitsSpeed": 1
+  },
+  "ui": {
+    "hdd": true,
+    "autoOpenBrowser": true,
+    "theme": "dark",
+    "agent": "fairy"
+  },
+  "agents": {
+    "fairy": {
+      "persona": {},
+      "tts": {}
+    },
+    "youkai": {
+      "persona": {
+        "corpusRoot": "",
+        "corpusSamples": 0,
+        "extraPrompt": ""
+      },
+      "tts": {
+        "engine": "local",
+        "sovitsUrl": "",
+        "sovitsRefAudio": "",
+        "sovitsPromptText": ""
+      }
+    }
+  }
+}

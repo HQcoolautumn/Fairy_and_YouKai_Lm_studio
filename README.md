@@ -1,2 +1,3 @@
 # Fairy_and_YouKai_Lm_studio
 我给lm studio适配了绝区零里面的fairy还有youKai的AI形象，欢迎各位使用，祝你玩的开心！
+想要运行需要下载配置node.js环境，很抱歉因为30MB超过了25MB限制导致太大没有办法放进去，所以点击runtime文件夹，自行官网下载，把node.js的exe文件放进去就可以了

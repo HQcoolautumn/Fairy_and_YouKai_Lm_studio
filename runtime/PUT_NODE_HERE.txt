@@ -1,0 +1,8 @@
+把 Node.js 的 node.exe 放在这个文件夹里，就可以不用安装 Node.js 直接运行。
+
+做法：
+  1) 下载免安装版：https://nodejs.org/dist/v24.22.0/node-v24.22.0-win-x64.zip
+  2) 解压，把里面的 node.exe 复制到本目录（runtime\）下
+  3) 回到上级目录，双击 Start-Fairy.bat
+
+已经装过 Node.js 的话，不用管这个文件夹，留空即可 —— 启动脚本会自动用系统里的。

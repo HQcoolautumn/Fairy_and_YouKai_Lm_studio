@@ -4,6 +4,9 @@
 <img width="2559" height="1599" alt="屏幕截图 2026-10-15 174024" src="https://github.com/user-attachments/assets/bf9b498a-9310-4456-9af5-39d3e1442b70" />
 <img width="2559" height="1599" alt="屏幕截图 2026-10-15 174110" src="https://github.com/user-attachments/assets/2fdc379d-f86a-436b-b7af-3051ae627013" />
 
-这里首先感谢@橙汁本色，制作并且开源分享的适配于deepseek harness的开源fairy
+这里感谢@橙汁本色，制作并且开源分享的适配于deepseek harness的开源fairy
 https://github.com/Chengzhibense/Fairy-DSH
 【可能是全网最还原的Fairy（动画】 https://www.bilibili.com/video/BV1SD4C63EZz/?share_source=copy_web&vd_source=4b877dd8b2dd57c2b3498c2ecbe6c457
+这里感谢露霁luki_yo提供的开场动画
+【我把绝区零HDD开屏动画做进了Windows开机！-哔哩哔哩】 https://b23.tv/VtOoWnu
+（致谢排名不分先后，感谢诸位作者的付出与分享，开源让世界更美好）
